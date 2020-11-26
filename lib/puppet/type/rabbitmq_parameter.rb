@@ -29,7 +29,7 @@ Type for managing rabbitmq parameters
          'dest-uri'   => 'amqp://remote-server',
          'dest-exchange' => 'another-exchange',
      },
-     skip_munging   => true,
+     autoconvert   => true,
    }
 DESC
 
@@ -62,9 +62,9 @@ DESC
     end
   end
 
-  newparam(:skip_munging) do
-    desc 'Set to true to disable conversion from number strings to integers'
-    defaultto(:false)
+  newparam(:autoconvert) do
+    desc 'Whether numeric strings from `value` should be converted to int automatically'
+    defaultto(:true)
     newvalues(:true, :false)
   end
 
@@ -96,7 +96,7 @@ DESC
   end
 
   def munge_value(value)
-    return value if self[:skip_munging] == :true
+    return value unless self[:autoconvert] == :true
     value.each do |k, v|
       value[k] = v.to_i if v =~ %r{\A[-+]?[0-9]+\z}
     end
