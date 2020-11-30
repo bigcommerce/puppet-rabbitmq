@@ -62,7 +62,7 @@ DESC
     end
   end
 
-  newparam(:autoconvert) do
+  newproperty(:autoconvert) do
     desc 'whether numeric strings from `value` should be converted to int automatically'
     newvalues(:true, :false)
     defaultto(:true)
@@ -96,7 +96,7 @@ DESC
   end
 
   def munge_value(value)
-    return value if self[:autoconvert] == :false
+    return value if value(:autoconvert) == :false
     value.each do |k, v|
       value[k] = v.to_i if v =~ %r{\A[-+]?[0-9]+\z}
     end
