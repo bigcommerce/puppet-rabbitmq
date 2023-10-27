@@ -920,6 +920,17 @@ describe 'rabbitmq' do
         end
       end
 
+      describe 'ra is enabled and segment_max_entries is set' do
+        let(:params) do
+          { ra: true,
+            segment_max_entries: 8192 }
+        end
+
+        it 'sets segment_max_entries to specified values' do
+          is_expected.to contain_file('rabbitmq.config').with_content(%r{segment_max_entries,8192})
+        end
+      end
+
       describe 'ssl options and mangament_ssl false' do
         let(:params) do
           { ssl: true,
