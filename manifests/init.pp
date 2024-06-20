@@ -226,6 +226,10 @@
 #   RPM package GPG key to import. Uses source method. Should be a URL for Debian/RedHat OS family, or a file name for
 #   RedHat OS family. Set to https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 #   for Debian/RedHat OS Family by default.
+# @param ra
+#   Configures the Raft consensus algorithm for the cluster
+# @param ra_segment_max_entries
+#   Configures the maximum number of entries in a Raft log segment. Requires ra => true
 # @param repo_gpg_key
 #   RPM package GPG key to import. Uses source method. Should be a URL for Debian/RedHat OS family, or a file name for
 #   RedHat OS family. Set to https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey for Debian/RedHat OS Family by
@@ -450,6 +454,8 @@ class rabbitmq (
   Array $archive_options                                                                           = [],
   Array $loopback_users                                                                            = ['guest'],
   Boolean $service_restart                                                                         = true,
+  Boolean $ra                                                                                      = false,
+  Integer[1,65535] $ra_segment_max_entries                                                         = 4096,
 ) {
   if $ssl_only and ! $ssl {
     fail('$ssl_only => true requires that $ssl => true')

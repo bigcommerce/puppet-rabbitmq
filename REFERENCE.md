@@ -256,6 +256,8 @@ The following parameters are available in the `rabbitmq` class:
 * [`service_manage`](#-rabbitmq--service_manage)
 * [`service_name`](#-rabbitmq--service_name)
 * [`service_restart`](#-rabbitmq--service_restart)
+* [`ra`](#-rabbitmq--ra)
+* [`ra_segment_max_entries`](#-rabbitmq--ra_segment_max_entries)
 * [`ssl`](#-rabbitmq--ssl)
 * [`ssl_cacert`](#-rabbitmq--ssl_cacert)
 * [`ssl_cert`](#-rabbitmq--ssl_cert)
@@ -783,6 +785,24 @@ It also does not solve the erlang dependency.  See https://www.rabbitmq.com/whic
 different ways of handling the erlang deps.  See also https://github.com/voxpupuli/puppet-rabbitmq/issues/788
 
 Default value: `false`
+
+#### <a name="-rabbitmq--ra"></a>`ra`
+
+Data type: `Boolean`
+
+Enable or disable raft configuration management
+
+Default value: `false`
+
+#### <a name="-rabbitmq--ra_segment_max_entries"></a>`ra_segment_max_entries`
+
+Data type: `Integer`
+
+Number of Raft log entries (such as enqueued messages) that are allowed in a single write-ahead log file.
+Positive values up to 65535 are allowed, the default is 4096.
+
+Default value: `4096`
+
 
 ##### <a name="-rabbitmq--service_ensure"></a>`service_ensure`
 
